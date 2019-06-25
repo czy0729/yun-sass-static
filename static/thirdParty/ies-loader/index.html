@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>IESRender</title>
+    <style>
+      * {
+        margin: 0;
+      }
+      .custom-window {
+        position: relative;
+        width: 800px;
+        height: 600px;
+        margin: 20px auto;
+        background-color: #ddd;
+      }
+      .btn-render {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="custom-window">
+      <button class="btn-render">渲染</button>
+      <div class="ies-loader__container"></div>
+      <div class="ies-loader__ctrl"></div>
+    </div>
+    <button class="btn-destory">杀</button>
+
+    <script src="./three.js"></script>
+    <script src="./index.js"></script>
+    <script>
+      const urlPrefix = 'https://litku.oss-cn-beijing.aliyuncs.com/ies'
+      const defaultIESLinks = {
+        ies_24D: `${urlPrefix}/ieses/24D_3.dat`,
+        ies_28D46D: `${urlPrefix}/ieses/28D46D_3.dat`,
+        ies_Road_1: `${urlPrefix}/ieses/Road_1_3.dat`
+      }
+
+      document
+        .querySelector('.btn-render')
+        .addEventListener('click', function() {
+          window.ies1 = new window.IES()
+          ies1.init({
+            iesLinks: defaultIESLinks,
+            target: document.querySelector('.ies-loader__container'),
+            ctrl: document.querySelector('.ies-loader__ctrl')
+          })
+        })
+
+      document
+        .querySelector('.btn-destory')
+        .addEventListener('click', function() {
+          if (window.ies1) {
+            window.ies1.destory()
+          }
+        })
+    </script>
+  </body>
+</html>
